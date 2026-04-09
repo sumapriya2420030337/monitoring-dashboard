@@ -13,23 +13,29 @@ ChartJS.register(LineElement, CategoryScale, LinearScale, PointElement);
 function Charts({ history }) {
   if (!history.length) return null;
 
-  const labels = history.map((h) => h.time);
+  const labels = history.map(h => h.time);
 
-  const cpuData = history.map(
-    (h) => h.data.reduce((sum, s) => sum + s.cpu, 0) / h.data.length
+  const cpuData = history.map(h =>
+    h.data.reduce((sum, s) => sum + s.cpu, 0) / h.data.length
   );
 
   const data = {
     labels,
     datasets: [
       {
-        label: "CPU Trend",
+        label: "Avg CPU Usage",
         data: cpuData,
+        borderColor: "#38bdf8",
+        tension: 0.3,
       },
     ],
   };
 
-  return <Line data={data} />;
+  return (
+    <div style={{ marginTop: "40px" }}>
+      <Line data={data} />
+    </div>
+  );
 }
 
 export default Charts;

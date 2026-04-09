@@ -2,17 +2,28 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SystemCard from "./SystemCard";
 import Alerts from "./Alerts";
-import "./Dashboard.css";
+import Charts from "./Charts";
+import "./dashboard.css";
 
 const BACKEND = "https://monitoring-dashboard-bzqh.onrender.com";
 
 function Dashboard() {
   const [systems, setSystems] = useState([]);
+  const [history, setHistory] = useState([]);
 
   const fetchData = async () => {
     try {
       const res = await axios.get(`${BACKEND}/systems`);
       setSystems(res.data);
+
+      setHistory(prev => [
+        ...prev,
+        {
+          time: new Date().toLocaleTimeString(),
+          data: res.data
+        }
+      ].slice(-10));
+
     } catch (err) {
       console.error("ERROR:", err);
     }
@@ -20,7 +31,7 @@ function Dashboard() {
 
   useEffect(() => {
     fetchData();
-    const interval = setInterval(fetchData, 5000);
+    const interval = setInterval(fetchData, 3000);
     return () => clearInterval(interval);
   }, []);
 
@@ -29,12 +40,14 @@ function Dashboard() {
       <h1>System Monitoring Dashboard</h1>
 
       <div className="cards">
-        {systems.map((sys, i) => (
-          <SystemCard key={i} system={sys} />
+        {systems.map(system => (
+          <SystemCard key={system.id} system={system} />
         ))}
       </div>
 
       <Alerts systems={systems} />
+
+      <Charts history={history} />
     </div>
   );
 }

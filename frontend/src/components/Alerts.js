@@ -1,16 +1,19 @@
 import React from "react";
 
 function Alerts({ systems }) {
+  const alerts = systems.filter(s => s.alert !== "LOW");
+
   return (
     <div>
       <h2>Alerts</h2>
-
-      {systems.map((sys, i) =>
-        sys.alert !== "LOW" ? (
-          <p key={i}>
-            ⚠ {sys.alert} Alert on {sys.name}
+      {alerts.length === 0 ? (
+        <p>No alerts 🚀</p>
+      ) : (
+        alerts.map(s => (
+          <p key={s.id}>
+            ⚠ {s.alert} Alert on {s.name}
           </p>
-        ) : null
+        ))
       )}
     </div>
   );
