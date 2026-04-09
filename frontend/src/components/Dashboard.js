@@ -3,7 +3,7 @@ import axios from "axios";
 import SystemCard from "./SystemCard";
 import Alerts from "./Alerts";
 import Charts from "./Charts";
-import "./dashboard.css";
+import "./Dashboard.css";
 
 const BACKEND = "https://monitoring-dashboard-bzqh.onrender.com";
 
