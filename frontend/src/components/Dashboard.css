@@ -1,0 +1,22 @@
+body {
+  background: #0f172a;
+  color: white;
+}
+
+.dashboard {
+  text-align: center;
+}
+
+.cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+  background: #1e293b;
+  padding: 15px;
+  border-radius: 10px;
+  width: 220px;
+}
